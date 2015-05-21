@@ -81,7 +81,7 @@ class UnitOfWork
         }
 
         $oid = spl_object_hash($entity);
-        $class = ClassUtils::getRealClass($entity);
+        $class = ClassUtils::getRealClass(get_class($entity));
         $this->scheduledForPersist[$class][$oid] = $entity;
 
         if ($this->evm->hasListeners(Events::postPersist)) {

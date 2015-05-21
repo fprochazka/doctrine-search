@@ -20,6 +20,7 @@
 namespace Doctrine\Search\Event;
 
 use Doctrine\Common\EventArgs;
+use Doctrine\Search\Searchable;
 use Doctrine\Search\SearchManager;
 
 /**
@@ -46,19 +47,19 @@ class LifecycleEventArgs extends EventArgs
     /**
      * Constructor
      *
-     * @param object $entity
-     * @param \Doctrine\Search\SearchManager $em
+     * @param Searchable $entity
+     * @param \Doctrine\Search\SearchManager $sm
      */
     public function __construct($entity, SearchManager $sm)
     {
         $this->entity = $entity;
-        $this->sm     = $sm;
+        $this->sm = $sm;
     }
 
     /**
      * Retrieve associated Entity.
      *
-     * @return object
+     * @return Searchable
      */
     public function getEntity()
     {

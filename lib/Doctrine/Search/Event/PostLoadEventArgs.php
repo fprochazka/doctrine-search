@@ -17,19 +17,50 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Doctrine\Search\Solr;
+namespace Doctrine\Search\Event;
+
+use Doctrine\Common\EventArgs;
+use Doctrine\Search\Searchable;
+use Doctrine\Search\SearchManager;
 
 /**
- * Configuration handler for Solr-Backend
+ * Lifecycle Events are triggered by the UnitOfWork during lifecycle transitions
+ * of entities.
  *
- * @author  Mike Lohmann <mike.h.lohmann@googlemail.com>
+ * @link   www.doctrine-project.org
+ * @since  2.0
+ * @author Roman Borschel <roman@code-factory.de>
+ * @author Benjamin Eberlei <kontakt@beberlei.de>
  */
-class Configuration
+class PostLoadEventArgs extends LifecycleEventArgs
 {
 
+	/**
+	 * @var array
+	 */
+	private $data;
 
-    public function __construct()
-    {
 
-    }
+
+	/**
+	 * @param Searchable $entity
+	 * @param array $data
+	 * @param SearchManager $sm
+	 */
+	public function __construct($entity, $data, SearchManager $sm)
+	{
+		parent::__construct($entity, $sm);
+		$this->data = $data;
+	}
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getRawData()
+	{
+		return $this->data;
+	}
+
 }
